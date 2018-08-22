@@ -56,22 +56,22 @@ func RemoveAlpha(v uint32) uint32 {
 	return v & 0x00ffffff
 }
 
-// Make everything red
-func FillRed(v uint32) uint32 {
+// Make the red component of every pixel 0xff
+func OrRed(v uint32) uint32 {
 	return v | 0x00ff0000
 }
 
-// Make everything green
-func FillGreen(v uint32) uint32 {
+// Make the green component of every pixel 0xff
+func OrGreen(v uint32) uint32 {
 	return v | 0x0000ff00
 }
 
-// Make everything blue
-func FillBlue(v uint32) uint32 {
+// Make the blue component of every pixel 0xff
+func OrBlue(v uint32) uint32 {
 	return v | 0x000000ff
 }
 
-// Make everything opaque
-func FillAlpha(v uint32) uint32 {
+// Make the alpha component of every pixel 0xff
+func OrAlpha(v uint32) uint32 {
 	return v | 0xff000000
 }
