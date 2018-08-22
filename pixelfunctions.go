@@ -9,19 +9,69 @@ func Invert(v uint32) uint32 {
 }
 
 // Keep the red component
-func Red(v uint32) uint32 {
+func OnlyRed(v uint32) uint32 {
 	// Keep alpha and the red value
 	return v & 0xffff0000
 }
 
 // Keep the green component
-func Green(v uint32) uint32 {
+func OnlyGreen(v uint32) uint32 {
 	// Keep alpha and the green value
 	return v & 0xff00ff00
 }
 
 // Keep the blue component
-func Blue(v uint32) uint32 {
+func OnlyBlue(v uint32) uint32 {
 	// Keep alpha and the blue value
 	return v & 0xff0000ff
+}
+
+// Keep the alpha component
+func OnlyAlpha(v uint32) uint32 {
+	// Keep only the alpha value
+	return v & 0xff000000
+}
+
+// Remove the red component
+func RemoveRed(v uint32) uint32 {
+	// Keep everything but red
+	return v & 0xff00ffff
+}
+
+// Remove the green component
+func RemoveGreen(v uint32) uint32 {
+	// Keep everything but green
+	return v & 0xffff00ff
+}
+
+// Remove the blue component
+func RemoveBlue(v uint32) uint32 {
+	// Keep everything but blue
+	return v & 0xffffff00
+}
+
+// Remove the alpha component, making the pixels transparent
+func RemoveAlpha(v uint32) uint32 {
+	// Keep everything but the alpha value
+	return v & 0x00ffffff
+}
+
+// Make everything red
+func FillRed(v uint32) uint32 {
+	return v | 0x00ff0000
+}
+
+// Make everything green
+func FillGreen(v uint32) uint32 {
+	return v | 0x0000ff00
+}
+
+// Make everything blue
+func FillBlue(v uint32) uint32 {
+	return v | 0x000000ff
+}
+
+// Make everything opaque
+func FillAlpha(v uint32) uint32 {
+	return v | 0xff000000
 }
