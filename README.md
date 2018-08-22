@@ -1,7 +1,5 @@
 # pf - PixelFunction
 
-## Work in progress, needs more testing!
-
 # Description
 
 The PixelFunction type has this signature:

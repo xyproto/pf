@@ -7,9 +7,9 @@ import (
 )
 
 func TestMap(t *testing.T) {
-	// Define a 10x10 image
-	var pitch int32 = 10
-	pixels := make([]uint32, 10*pitch)
+	// Define a 6x4 image
+	var pitch int32 = 6
+	pixels := make([]uint32, 4*pitch)
 
 	// Use 1 core for setting all pixels to 42
 	Map(1, func(x uint32) uint32 {
