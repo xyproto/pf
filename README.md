@@ -36,10 +36,11 @@ func main() {
 
 	pixels := make([]uint32, w*h)
 
+	// Find the number of available CPUs
+	n := runtime.NumCPU()
+
 	// Combine two pixel functions
 	pfs := pf.Combine(pf.InvertEverything, pf.OnlyBlue)
-
-	n := runtime.NumCPU()
 
 	// Run the combined pixel functions over all pixels using all available CPUs
 	pf.Map(n, pfs, pixels)
