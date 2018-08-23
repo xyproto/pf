@@ -22,9 +22,9 @@ func Combine3(a, b, c PixelFunction) PixelFunction {
 }
 
 // partialMap runs a PixelFunction on parts of the pixel buffer
-func partialMap(wg *sync.WaitGroup, f PixelFunction, pixels []uint32, iStart, iStop int32) {
-	for i := iStart; i < iStop; i++ {
-		pixels[i] = f(pixels[i])
+func partialMap(wg *sync.WaitGroup, f PixelFunction, sliceOfPixels []uint32) {
+	for i := range sliceOfPixels {
+		sliceOfPixels[i] = f(sliceOfPixels[i])
 	}
 	wg.Done()
 }
@@ -49,7 +49,7 @@ func Map(cores int, f PixelFunction, pixels []uint32) {
 	if iStep < iLength {
 		for i := int32(0); i < iConcurrentlyDone; i += iStep {
 			wg.Add(1)
-			go partialMap(&wg, f, pixels, i, i+iStep)
+			go partialMap(&wg, f, pixels[i:i+iStep])
 		}
 		iDone = iConcurrentlyDone
 	}
@@ -61,7 +61,7 @@ func Map(cores int, f PixelFunction, pixels []uint32) {
 
 	// Apply partialMap to the final leftover pixels
 	wg.Add(1)
-	go partialMap(&wg, f, pixels, iDone, iLength)
+	go partialMap(&wg, f, pixels[iDone:iLength])
 
 	wg.Wait()
 }
