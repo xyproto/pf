@@ -29,10 +29,8 @@ func partialMap(wg *sync.WaitGroup, f PixelFunction, sliceOfPixels []uint32) {
 	}
 }
 
-// Map a PixelFunction over every pixel (uint32 ARGB value)
+// Map a PixelFunction over every pixel (uint32 ARGB value), concurrently
 func Map(cores int, f PixelFunction, pixels []uint32) {
-	// Map a pixel function over every pixel, concurrently
-
 	var (
 		wg      sync.WaitGroup
 		iLength = int32(len(pixels))
