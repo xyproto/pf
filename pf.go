@@ -23,10 +23,10 @@ func Combine3(a, b, c PixelFunction) PixelFunction {
 
 // partialMap runs a PixelFunction on parts of the pixel buffer
 func partialMap(wg *sync.WaitGroup, f PixelFunction, sliceOfPixels []uint32) {
+	defer wg.Done()
 	for i := range sliceOfPixels {
 		sliceOfPixels[i] = f(sliceOfPixels[i])
 	}
-	wg.Done()
 }
 
 // Map a PixelFunction over every pixel (uint32 ARGB value)
