@@ -4,13 +4,11 @@ Apply functions to each pixel in an image, concurrently.
 
 This module contains functions that fit well together with the [multirender](https://github.com/xyproto/multirender) module.
 
-# Description
-
 The `PixelFunction` type has this signature:
 
     func(v uint32) uint32
 
-If you have a pixel buffer of type []uint32, with colors on the form ARGB, then this modules allows you to apply PixelFunctions to that slice, concurrently.
+If you have a pixel buffer of type `[]uint32`, with colors on the form `ARGB`, then this modules allows you to apply functions of the type `PixelFunction` to that slice, concurrently.
 
 The goal is to avoid looping over all pixels more than once, while applying many different effects, concurrently.
 
