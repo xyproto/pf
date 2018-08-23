@@ -1,6 +1,8 @@
-# pf
+# PixelFunctions
 
-Pixel functions for the [multirender](https://github.com/xyproto/multirender) module.
+Apply functions to each pixel in an image, concurrently.
+
+This module contains functions that fit well together with the [multirender](https://github.com/xyproto/multirender) module.
 
 # Description
 
