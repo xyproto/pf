@@ -8,6 +8,12 @@ func Invert(v uint32) uint32 {
 	return (0xffffffff - v) | 0xff000000
 }
 
+// Invert the colors, including the alpha value
+func InvertEverything(v uint32) uint32 {
+	// Invert everything
+	return 0xffffffff - v
+}
+
 // Keep the red component
 func OnlyRed(v uint32) uint32 {
 	// Keep alpha and the red value

@@ -7,11 +7,18 @@ import (
 // Perform an operation on a single ARGB pixel
 type PixelFunction func(v uint32) uint32
 
-// Combine two functions to a single PixelFunction
+// Combine two functions to a single PixelFunction.
+// The functions are applied in the same order as the arguments.
 func Combine(a, b PixelFunction) PixelFunction {
 	return func(v uint32) uint32 {
 		return b(a(v))
 	}
+}
+
+// Combine three functions to a single PixelFunction.
+// The functions are applied in the same order as the arguments.
+func Combine3(a, b, c PixelFunction) PixelFunction {
+	return Combine(a, Combine(b, c))
 }
 
 // partialMap runs a PixelFunction on parts of the pixel buffer
@@ -26,13 +33,17 @@ func partialMap(wg *sync.WaitGroup, f PixelFunction, pixels []uint32, iStart, iS
 func Map(cores int, f PixelFunction, pixels []uint32) {
 	// Map a pixel function over every pixel, concurrently
 
-	var wg sync.WaitGroup
+	var (
+		wg      sync.WaitGroup
+		iLength = int32(len(pixels))
+		iStep   = iLength / int32(cores)
 
-	iLength := int32(len(pixels))
+		// iConcurrentlyDone keeps track of how much work have been done by launching goroutines
+		iConcurrentlyDone = int32(cores) * iStep
 
-	iStep := iLength / int32(cores)
-	iConcurrentlyDone := int32(cores) * iStep
-	var iDone int32
+		// iDone keeps track of how much work have been done in total
+		iDone int32
+	)
 
 	// Apply partialMap for each of the partitions
 	if iStep < iLength {
