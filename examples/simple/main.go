@@ -8,7 +8,7 @@ import (
 
 func main() {
 	// Resolution
-	w, h := 320, 200
+	const w, h = 320, 200
 
 	pixels := make([]uint32, w*h)
 
