@@ -21,7 +21,7 @@ func main() {
 	// Run the combined pixel functions over all pixels using all available CPUs
 	pf.Map(n, pfs, pixels)
 
-	// Retrieve the red, green, blue and alpha components of the first pixel
+	// Retrieve the red, green and blue components of the first pixel
 	red := (pixels[0] | 0x00ff0000) >> 0xffff
 	green := (pixels[0] | 0x0000ff00) >> 0xff
 	blue := (pixels[0] | 0x000000ff)
