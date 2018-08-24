@@ -1,0 +1,1 @@
+Divide up the pixels in several slices, then always deal with separate slices and combine them at the very end, non-concurrently.
