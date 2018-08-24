@@ -26,6 +26,40 @@ func TestMap(t *testing.T) {
 	}
 }
 
+func TestDivide(t *testing.T) {
+	pixels := make([]uint32, 100)
+
+	// 100 divided into 2 slices fits perfectly
+	slicesOfSlices := Divide(pixels, 2)
+	if len(slicesOfSlices) != 2 {
+		t.Fail()
+	}
+	if len(slicesOfSlices[0]) != 50 {
+		t.Fail()
+	}
+	if len(slicesOfSlices[1]) != 50 {
+		t.Fail()
+	}
+
+	// 100 divided into 3 slices + leftover pixels
+	slicesOfSlices = Divide(pixels, 3)
+	if len(slicesOfSlices) != 4 {
+		t.Fail()
+	}
+	if len(slicesOfSlices[0]) != 33 {
+		t.Fail()
+	}
+	if len(slicesOfSlices[1]) != 33 {
+		t.Fail()
+	}
+	if len(slicesOfSlices[2]) != 33 {
+		t.Fail()
+	}
+	if len(slicesOfSlices[3]) != 1 {
+		t.Fail()
+	}
+}
+
 func TestConcurrentMap(t *testing.T) {
 	// Define a 7x19 image
 	var pitch int32 = 7
