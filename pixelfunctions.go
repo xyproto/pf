@@ -8,6 +8,12 @@ func Invert(v uint32) uint32 {
 	return (0xffffffff - v) | 0xff000000
 }
 
+// Invert the colors, including the alpha value
+func InvertEverything(v uint32) uint32 {
+	// Invert everything
+	return 0xffffffff - v
+}
+
 // Keep the red component
 func OnlyRed(v uint32) uint32 {
 	// Keep alpha and the red value
@@ -57,17 +63,17 @@ func RemoveAlpha(v uint32) uint32 {
 }
 
 // Make the red component of every pixel 0xff
-func OrRed(v uint32) uint32 {
+func SetRedBits(v uint32) uint32 {
 	return v | 0x00ff0000
 }
 
 // Make the green component of every pixel 0xff
-func OrGreen(v uint32) uint32 {
+func SetGreenBits(v uint32) uint32 {
 	return v | 0x0000ff00
 }
 
 // Make the blue component of every pixel 0xff
-func OrBlue(v uint32) uint32 {
+func SetBlueBits(v uint32) uint32 {
 	return v | 0x000000ff
 }
 
