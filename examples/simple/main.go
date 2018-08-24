@@ -16,16 +16,16 @@ func main() {
 	n := runtime.NumCPU()
 
 	// Combine two pixel functions
-	pfs := pf.Combine(pf.InvertEverything, pf.OnlyBlue)
+	pfs := pf.Combine(pf.InvertEverything, pf.OnlyGreen)
 
 	// Run the combined pixel functions over all pixels using all available CPUs
 	pf.Map(n, pfs, pixels)
 
 	// Retrieve the red, green and blue components of the first pixel
-	red := (pixels[0] | 0x00ff0000) >> 0xffff
-	green := (pixels[0] | 0x0000ff00) >> 0xff
-	blue := (pixels[0] | 0x000000ff)
+	red := (pixels[0] & 0x00ff0000) >> 16
+	green := (pixels[0] & 0x0000ff00) >> 8
+	blue := (pixels[0] & 0x000000ff)
 
-	// Should output only blue: rgb(0, 0, 255)
-	fmt.Printf("rgb(%d, %d, %d)\n", red, green, blue)
+	// Should output only blue: rgb(0, 255, 0)
+	fmt.Printf("rgb(%d, %d, %d) / #%x\n", red, green, blue, pixels[0])
 }
