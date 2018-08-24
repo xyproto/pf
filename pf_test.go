@@ -45,3 +45,27 @@ func TestConcurrentMap(t *testing.T) {
 		}
 	}
 }
+
+func ExampleConcurrency() {
+	// Resolution
+	const w, h = 320, 200
+
+	pixels := make([]uint32, w*h)
+
+	// Find the number of available CPUs
+	n := runtime.NumCPU()
+
+	// Combine two pixel functions
+	pfs := Combine(InvertEverything, OnlyBlue)
+
+	// Run the combined pixel functions over all pixels using all available CPUs
+	Map(n, pfs, pixels)
+
+	// Retrieve the red, green and blue components of the first pixel
+	red := (pixels[0] | 0x00ff0000) >> 0xffff
+	green := (pixels[0] | 0x0000ff00) >> 0xff
+	blue := (pixels[0] | 0x000000ff)
+
+	fmt.Printf("rgb(%d, %d, %d)\n", red, green, blue)
+	// Output: rgb(0, 0, 255)
+}
