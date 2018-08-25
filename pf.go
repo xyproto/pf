@@ -24,10 +24,11 @@ func Combine3(a, b, c PixelFunction) PixelFunction {
 // Divide a slice of pixels into several slices
 func Divide(pixels []uint32, n int) [][]uint32 {
 	length := len(pixels)
+
 	sliceLen := length / n
 	leftover := length % n
 
-	sliceOfSlices := make([][]uint32, 0)
+	var sliceOfSlices [][]uint32
 	for i := 0; i < (length - leftover); i += sliceLen {
 		sliceOfSlices = append(sliceOfSlices, pixels[i:i+sliceLen])
 	}
@@ -86,8 +87,8 @@ func GlitchyMap(cores int, f PixelFunction, pixels []uint32) {
 	// Apply partialMap for each of the partitions
 	if iStep < iLength {
 		for i := int32(0); i < iConcurrentlyDone; i += iStep {
-			wg.Add(1)
 			// run a PixelFunction on parts of the pixel buffer
+			wg.Add(1)
 			go func(wg *sync.WaitGroup, f PixelFunction, pixels []uint32, iStart, iStop int32) {
 				for i := iStart; i < iStop; i++ {
 					pixels[i] = f(pixels[i])
